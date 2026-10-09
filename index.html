@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Le Jardin de Notre Amour ❤️</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Georgia, serif;
+    text-align: center;
+    color: #913b60;
+    background: linear-gradient(160deg, #ffe1ee, #fff7e9);
+}
+
+.container {
+    max-width: 850px;
+    margin: auto;
+    padding: 35px 18px;
+}
+
+h1 {
+    font-size: clamp(28px, 6vw, 44px);
+}
+
+h2 {
+    font-size: clamp(24px, 5vw, 34px);
+}
+
+.subtitle {
+    font-size: 19px;
+    line-height: 1.7;
+}
+
+.chapter {
+    display: none;
+    animation: appear 0.8s ease;
+}
+
+.chapter.active {
+    display: block;
+}
+
+.story {
+    background: rgba(255,255,255,0.85);
+    padding: 28px;
+    border-radius: 25px;
+    margin: 25px auto;
+    max-width: 680px;
+    font-size: 19px;
+    line-height: 1.9;
+    box-shadow: 0 8px 25px rgba(150,70,100,0.1);
+}
+
+.scene {
+    height: 280px;
+    border-radius: 25px;
+    margin: 25px auto;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(#aee7ff 65%, #91d58a 65%);
+}
+
+.scene .emoji {
+    position: absolute;
+    font-size: 55px;
+    animation: sway 3s infinite alternate ease-in-out;
+}
+
+.flower1 { bottom: 15px; left: 12%; }
+.flower2 { bottom: 15px; left: 38%; }
+.flower3 { bottom: 15px; left: 65%; }
+.flower4 { bottom: 15px; left: 85%; }
+
+.sun {
+    position: absolute;
+    top: 25px;
+    right: 18%;
+    font-size: 65px;
+}
+
+.cloud {
+    position: absolute;
+    top: 30px;
+    left: 12%;
+    font-size: 65px;
+    animation: float 5s infinite alternate ease-in-out;
+}
+
+.butterfly {
+    position: absolute;
+    top: 110px;
+    left: 35%;
+    font-size: 35px;
+    animation: fly 5s infinite alternate ease-in-out;
+}
+
+button {
+    background: #ee78a4;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 27px;
+    font-size: 17px;
+    cursor: pointer;
+    margin: 8px;
+    min-height: 48px;
+    font-family: inherit;
+}
+
+button:hover {
+    background: #d85a8c;
+}
+
+button:focus-visible {
+    outline: 3px solid #763052;
+    outline-offset: 3px;
+}
+
+.back {
+    background: #b88da5;
+}
+
+.progress {
+    margin: 20px 0;
+    font-size: 15px;
+}
+
+/* PHOTOS */
+
+.memory-title {
+    margin-top: 35px;
+    font-size: 24px;
+}
+
+.photo-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 22px;
+    margin: 30px auto 40px;
+}
+
+.polaroid {
+    background: white;
+    padding: 12px 12px 18px;
+    width: min(100%, 260px);
+    border-radius: 5px;
+    box-shadow: 0 10px 25px rgba(110,60,80,0.18);
+    transform: rotate(-3deg);
+    transition: transform 0.35s ease;
+}
+
+.polaroid:nth-child(even) {
+    transform: rotate(3deg);
+}
+
+.polaroid:hover {
+    transform: rotate(0deg) scale(1.035);
+}
+
+.polaroid img {
+    width: 100%;
+    height: 270px;
+    display: block;
+    object-fit: cover;
+    border-radius: 3px;
+    background: #ffe4ed;
+}
+
+.polaroid figcaption {
+    margin-top: 14px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #a04a70;
+    font-style: italic;
+}
+
+.photo-error {
+    display: none;
+    padding: 30px 8px;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+/* BEACH */
+
+.beach {
+    background: linear-gradient(
+        #101b46 0%,
+        #273b70 45%,
+        #5b7b9c 65%,
+        #184c7c 66%,
+        #286a91 100%
+    );
+    animation: sunrise 15s ease-in-out forwards;
+}
+
+.moon {
+    position: absolute;
+    top: 30px;
+    right: 20%;
+    font-size: 60px;
+    animation: moonfade 15s forwards;
+}
+
+.stars {
+    position: absolute;
+    top: 35px;
+    left: 15%;
+    font-size: 40px;
+    animation: moonfade 15s forwards;
+}
+
+.beach-sun {
+    position: absolute;
+    bottom: 70px;
+    left: 45%;
+    font-size: 65px;
+    opacity: 0;
+    animation: sunappear 15s forwards;
+}
+
+.waves {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    font-size: 35px;
+}
+
+/* COUNTDOWN */
+
+.countdown {
+    font-size: clamp(24px, 5vw, 36px);
+    font-weight: bold;
+    margin: 25px 0;
+}
+
+/* HEARTS */
+
+#hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.heart {
+    position: absolute;
+    bottom: -40px;
+    font-size: 30px;
+    animation: rise 4s linear forwards;
+}
+
+/* ANIMATIONS */
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes sway {
+    from { transform: rotate(-8deg); }
+    to { transform: rotate(8deg); }
+}
+
+@keyframes float {
+    from { transform: translateX(-15px); }
+    to { transform: translateX(25px); }
+}
+
+@keyframes fly {
+    from { transform: translate(0, 0); }
+    to { transform: translate(70px, -35px); }
+}
+
+@keyframes sunrise {
+    0%, 15% {
+        background: linear-gradient(
+            #101b46 0%,
+            #273b70 65%,
+            #184c7c 66%,
+            #286a91
+        );
+    }
+
+    55% {
+        background: linear-gradient(
+            #72588b 0%,
+            #f3a5a0 65%,
+            #427da0 66%,
+            #286a91
+        );
+    }
+
+    100% {
+        background: linear-gradient(
+            #a9dcff 0%,
+            #ffb58d 65%,
+            #427da0 66%,
+            #286a91
+        );
+    }
+}
+
+@keyframes moonfade {
+    0%, 30% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes sunappear {
+    0%, 40% {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(-25px);
+    }
+}
+
+@keyframes rise {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .story {
+        padding: 20px;
+        font-size: 17px;
+    }
+
+    .scene {
+        height: 230px;
+    }
+
+    .scene .emoji {
+        font-size: 40px;
+    }
+
+    .polaroid {
+        width: min(85%, 300px);
+    }
+
+    .polaroid img {
+        height: 300px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="hearts" aria-hidden="true"></div>
+
+<main class="container">
+
+<h1>🌷 Le Jardin de Notre Amour 🌷</h1>
+<p class="subtitle">L'histoire de Jay et Elyssa ❤️</p>
+
+<div class="progress" id="progress"></div>
+
+<!-- CHAPTER 1 -->
+
+<section class="chapter active">
+
+<h2>Chapitre 1 — Le destin nous a réunis 🌹</h2>
+
+<div class="scene">
+    <div class="sun">☀️</div>
+    <div class="cloud">☁️</div>
+    <div class="butterfly">🦋</div>
+    <div class="emoji flower1">🌹</div>
+    <div class="emoji flower2">🌷</div>
+    <div class="emoji flower3">🌸</div>
+    <div class="emoji flower4">🌻</div>
+</div>
+
+<div class="story">
+Il était une fois un garçon qui ne savait pas encore
+qu'une fille allait changer sa vie pour toujours.
+
+<br><br>
+
+Notre histoire a commencé à l'université, au Liban.
+À cette époque, tu étais simplement l'amie d'un ami.
+
+<br><br>
+
+Pendant quatre ans, notre amitié a connu des moments
+où nous étions proches et d'autres où nous nous parlions moins.
+
+<br><br>
+
+Mais aujourd'hui, quand je repense à tout cela,
+je souris en me disant que la vie nous réservait
+quelque chose de tellement beau.
+
+<br><br>
+
+Et cette belle histoire, c'est la nôtre. ❤️
+</div>
+
+<h3 class="memory-title">🌸 Quelques souvenirs de nous</h3>
+
+<div class="photo-gallery">
+
+    <figure class="polaroid">
+        <img data-photo="IMG_7370"
+             alt="Jay et Elyssa ensemble au restaurant">
+        <figcaption>
+            Le hasard nous a réunis, l'amour nous a rapprochés ❤️
+        </figcaption>
+    </figure>
+
+    <figure class="polaroid">
+        <img data-photo="IMG_7365"
+             alt="Jay et Elyssa souriants au restaurant">
+        <figcaption>
+            Et dire que tout a commencé par une amitié 🌷
+        </figcaption>
+    </figure>
+
+</div>
+
+<button onclick="nextChapter()">Découvrir la suite ❤️ →</button>
+
+</section>
+
+<!-- CHAPTER 2 -->
+
+<section class="chapter">
+
+<h2>Chapitre 2 — Cet appel qui a tout changé 📞</h2>
+
+<div class="scene">
+    <div class="sun">💕</div>
+    <div class="cloud">☁️</div>
+    <div class="emoji flower1">🌷</div>
+    <div class="emoji flower2">🌹</div>
+    <div class="emoji flower3">🌸</div>
+    <div class="emoji flower4">💐</div>
+</div>
+
+<div class="story">
+Et puis, un soir, tu m'as appelé.
+
+<br><br>
+
+Un simple appel qui allait changer tellement de choses.
+
+<br><br>
+
+Nous nous sommes retrouvés ce soir-là,
+sans savoir que ce moment marquerait
+le début d'une nouvelle histoire entre nous.
+
+<br><br>
+
+Depuis cette nuit, nous n'avons jamais vraiment
+arrêté de nous parler.
+
+<br><br>
+
+Tu es devenue la personne à qui j'ai envie
+de raconter mes journées, mes joies,
+mes inquiétudes et même les petites choses
+qui n'ont aucune importance.
+
+<br><br>
+
+Et si je pouvais revenir en arrière,
+je répondrais à cet appel encore mille fois. ❤️
+</div>
+
+<h3 class="memory-title">💕 Nos petits moments à nous</h3>
+
+<div class="photo-gallery">
+
+    <figure class="polaroid">
+        <img data-photo="IMG_7422"
+             alt="Un selfie amusant de Jay et Elyssa">
+        <figcaption>
+            Avec toi, même les moments les plus simples sont précieux 💗
+        </figcaption>
+    </figure>
+
+    <figure class="polaroid">
+        <img data-photo="IMG_7417"
+             alt="Jay et Elyssa ensemble sur le canapé">
+        <figcaption>
+            Mon bonheur, c'est aussi ces instants tout simples avec toi 🥰
+        </figcaption>
+    </figure>
+
+    <figure class="polaroid">
+        <img data-photo="IMG_7404"
+             alt="Elyssa souriante aux côtés de Jay">
+        <figcaption>
+            Depuis cet appel, tu occupes une place immense dans mon cœur ❤️
+        </figcaption>
+    </figure>
+
+</div>
+
+<button class="back" onclick="previousChapter()">← Retour</button>
+<button onclick="nextChapter()">Continuer notre histoire 🌷 →</button>
+
+</section>
+
+<!-- CHAPTER 3 -->
+
+<section class="chapter">
+
+<h2>Chapitre 3 — Notre première nuit sous les étoiles 🌙</h2>
+
+<div class="scene beach">
+    <div class="moon">🌙</div>
+    <div class="stars">✨ ⭐ ✨</div>
+    <div class="beach-sun">☀️</div>
+    <div class="waves">🌊 🌊 🌊 🌊 🌊</div>
+</div>
+
+<div class="story">
+Il y a une nuit que je n'oublierai jamais.
+
+<br><br>
+
+Cette nuit à Tabarja, au bord de la mer.
+
+<br><br>
+
+Notre premier baiser. ❤️
+
+<br><br>
+
+Je me souviens de ce moment,
+de nous deux ensemble,
+et de cette nuit qui semblait ne jamais vouloir se terminer.
+
+<br><br>
+
+Nous sommes restés là jusqu'au lever du soleil.
+
+<br><br>
+
+Et si je pouvais revivre un moment
+mille fois, je choisirais cette nuit-là.
+
+<br><br>
+
+Parce que ce soir-là, je n'avais besoin de rien d'autre.
+
+<br><br>
+
+J'étais simplement heureux d'être avec toi.
+
+<br><br>
+
+Et même aujourd'hui, à des milliers de kilomètres,
+ce souvenir me fait sourire.
+
+<br><br>
+
+Je t'aime, ma princesse. 🌅❤️
+</div>
+
+<h3 class="memory-title">🌅 Toi, moi et la mer</h3>
+
+<div class="photo-gallery">
+
+    <figure class="polaroid">
+        <img data-photo="09c391fb-3211-455c-a7e2-a26eac1666d7"
+             alt="Jay et Elyssa devant la mer au coucher du soleil">
+        <figcaption>
+            La mer, le ciel et toi… tout ce dont j'ai besoin ❤️
+        </figcaption>
+    </figure>
+
+    <figure class="polaroid">
+        <img data-photo="IMG_7363"
+             alt="Jay et Elyssa proches l'un de l'autre">
+        <figcaption>
+            Il y a des instants que je voudrais faire durer éternellement 💋
+        </figcaption>
+    </figure>
+
+</div>
+
+<button class="back" onclick="previousChapter()">← Retour</button>
+<button onclick="nextChapter()">La suite de notre amour ❤️ →</button>
+
+</section>
+
+<!-- CHAPTER 4 -->
+
+<section class="chapter">
+
+<h2>Chapitre 4 — Tout ce que j'aime chez toi 🌸</h2>
+
+<div class="scene">
+    <div class="sun">☀️</div>
+    <div class="cloud">☁️</div>
+    <div class="butterfly">🦋</div>
+    <div class="emoji flower1">🌹</div>
+    <div class="emoji flower2">🌻</div>
+    <div class="emoji flower3">🌷</div>
+    <div class="emoji flower4">🌸</div>
+</div>
+
+<div class="story">
+Ma princesse,
+
+<br><br>
+
+Il y a tellement de choses que j'aime chez toi.
+
+<br><br>
+
+J'aime ton sourire.
+Ce sourire qui peut rendre ma journée
+plus belle en quelques secondes.
+
+<br><br>
+
+J'aime ton charisme, ta personnalité
+et cette façon si particulière que tu as
+de rendre les moments ensemble précieux.
+
+<br><br>
+
+Mais ce que j'aime aussi énormément,
+c'est la façon dont tu me motives chaque jour.
+
+<br><br>
+
+Tu me donnes envie d'avancer,
+de travailler pour mes rêves
+et de devenir une meilleure version de moi-même.
+
+<br><br>
+
+Tu ne te rends peut-être pas toujours compte
+de l'importance que tu as dans ma vie.
+
+<br><br>
+
+Mais crois-moi, mon amour,
+tu comptes énormément pour moi. ❤️
+</div>
+
+<h3 class="memory-title">🌷 Ce sourire que j'aime tant</h3>
+
+<div class="photo-gallery">
+
+    <figure class="polaroid">
+        <img data-photo="IMG_7341"
+             alt="Un selfie drôle de Jay et Elyssa">
+        <figcaption>
+            Ton sourire et nos fous rires, mon petit bonheur quotidien 💕
+        </figcaption>
+    </figure>
+
+    <figure class="polaroid">
+        <img data-photo="IMG_7336"
+             alt="Un selfie rapproché de Jay et Elyssa">
+        <figcaption>
+            J'aime chaque petite chose qui fait de toi la personne que tu es 🌸
+        </figcaption>
+    </figure>
+
+    <figure class="polaroid">
+        <img data-photo="22489d88-e26a-40e5-836b-bce241db012b"
+             alt="Jay et Elyssa ensemble dans une salle rouge">
+        <figcaption>
+            Ma partenaire, ma motivation et mon amour ❤️
+        </figcaption>
+    </figure>
+
+</div>
+
+<button class="back" onclick="previousChapter()">← Retour</button>
+<button onclick="nextChapter()">Encore un peu de notre histoire 💕 →</button>
+
+</section>
+
+<!-- CHAPTER 5 -->
+
+<section class="chapter">
+
+<h2>Chapitre 5 — Chaque jour nous rapproche ⏳</h2>
+
+<div class="scene">
+    <div class="sun">☀️</div>
+    <div class="cloud">☁️</div>
+    <div class="butterfly">🦋</div>
+    <div class="emoji flower1">🌹</div>
+    <div class="emoji flower2">💌</div>
+    <div class="emoji flower3">🌷</div>
+    <div class="emoji flower4">❤️</div>
+</div>
+
+<div class="story">
+Aujourd'hui, des kilomètres nous séparent.
+
+<br><br>
+
+Moi en Allemagne, toi au Liban.
+
+<br><br>
+
+Bien sûr, j'aimerais pouvoir te prendre
+dans mes bras chaque fois que tu me manques.
+
+<br><br>
+
+Mais même avec cette distance,
+tu restes présente dans mon cœur
+et dans mes pensées.
+
+<br><br>
+
+Chaque appel, chaque message et chaque sourire
+partagé à travers un écran me rappelle
+à quel point je suis heureux de t'avoir.
+
+<br><br>
+
+Et chaque jour qui passe nous rapproche
+du moment où je pourrai enfin te retrouver.
+
+<h3>❤️ Jusqu'à nos retrouvailles ❤️</h3>
+
+<div class="countdown" id="countdown">
+    Chargement...
+</div>
+
+Le 28 décembre, je pourrai enfin
+te serrer dans mes bras.
+
+<br><br>
+
+Et j'ai tellement hâte, ma princesse. ❤️
+</div>
+
+<h3 class="memory-title">💌 Des souvenirs en attendant de te retrouver</h3>
+
+<div class="photo-gallery">
+
+    <!-- Missing IMG_7149 photo removed -->
+
+    <figure class="polaroid">
+        <img data-photo="IMG_7147"
+             alt="Jay et Elyssa ensemble devant un miroir">
+        <figcaption>
+            Encore quelques jours avant de pouvoir te serrer dans mes bras 🥹
+        </figcaption>
+    </figure>
+
+</div>
+
+<button class="back" onclick="previousChapter()">← Retour</button>
+<button onclick="nextChapter()">Une dernière surprise 💌 →</button>
+
+</section>
+
+<!-- CHAPTER 6 -->
+
+<section class="chapter">
+
+<h2>Chapitre 6 — Une lettre pour mon amour 💌</h2>
+
+<div class="scene">
+    <div class="sun">💖</div>
+    <div class="cloud">☁️</div>
+    <div class="butterfly">🦋</div>
+    <div class="emoji flower1">🌹</div>
+    <div class="emoji flower2">💐</div>
+    <div class="emoji flower3">🌷</div>
+    <div class="emoji flower4">🌸</div>
+</div>
+
+<div class="story">
+Ma chère Elyssa,
+
+<br><br>
+
+Si j'ai créé ce petit jardin pour toi,
+c'est parce que je voulais trouver
+une façon de te faire sourire,
+même lorsque je ne peux pas être à tes côtés.
+
+<br><br>
+
+Notre histoire n'a pas commencé comme
+dans les films.
+
+<br><br>
+
+Elle a commencé par une amitié,
+par des années où nos chemins se croisaient,
+puis par un appel qui a tout changé.
+
+<br><br>
+
+Et aujourd'hui, je suis tellement reconnaissant
+que nos chemins nous aient conduits jusqu'ici.
+
+<br><br>
+
+Merci pour ton sourire.
+Merci pour ton amour.
+Merci de me motiver chaque jour.
+
+<br><br>
+
+Merci d'être cette personne
+qui rend ma vie plus belle.
+
+<br><br>
+
+Je sais que la distance n'est pas toujours facile.
+
+<br><br>
+
+Mais je veux que tu saches une chose :
+je continuerai à faire de mon mieux
+pour prendre soin de notre amour,
+peu importe les kilomètres qui nous séparent.
+
+<br><br>
+
+J'ai hâte de créer encore tellement de souvenirs
+avec toi, de rire avec toi,
+de te prendre dans mes bras
+et de partager toutes ces petites choses
+qui rendent notre histoire si spéciale.
+
+<br><br>
+
+Et si un jour tu te demandes
+à quel point je t'aime,
+repense à ce petit jardin.
+
+<br><br>
+
+Parce que chaque fleur représente
+un petit morceau de tout l'amour
+que j'ai pour toi.
+
+<br><br>
+
+<strong>
+Je t'aime, Elyssa.
+
+<br><br>
+
+Aujourd'hui, demain et pour toujours. ❤️
+
+<br><br>
+
+Ton Jay.
+</strong>
+</div>
+
+<h3 class="memory-title">❤️ Notre petite galerie d'amour</h3>
+
+<div class="photo-gallery">
+
+    <figure class="polaroid">
+        <img data-photo="IMG_7252"
+             alt="Jay et Elyssa ensemble au café">
+        <figcaption>
+            Avec toi, je suis à ma place ❤️
+        </figcaption>
+    </figure>
+
+    <figure class="polaroid">
+        <img data-photo="5629a9f8-5aca-4cb4-8db7-f845b8bb4894"
+             alt="Jay et Elyssa ensemble sous une lumière rouge">
+        <figcaption>
+            Encore mille souvenirs à créer ensemble 💗
+        </figcaption>
+    </figure>
+
+    <figure class="polaroid">
+        <img data-photo="12a84184-18ae-438f-bbaf-c42de34756a3"
+             alt="Jay et Elyssa ensemble dans une ambiance chaleureuse">
+        <figcaption>
+            Mon amour, mon bonheur, mon Elyssa 🌹
+        </figcaption>
+    </figure>
+
+</div>
+
+<button class="back" onclick="previousChapter()">← Retour</button>
+
+<button onclick="sendKisses()">Un dernier bisou ? 💋</button>
+
+<p id="finalMessage" class="subtitle" hidden>
+Je t'envoie mille bisous, ma princesse ! 💋❤️
+</p>
+
+</section>
+
+</main>
+
+<script>
+
+/* AUTOMATIC PHOTO EXTENSION MATCHING */
+
+const photoExtensions = [
+    ".jpg",
+    ".JPG",
+    ".jpeg",
+    ".JPEG",
+    ".png",
+    ".PNG"
+];
+
+function loadPhoto(img) {
+
+    const name = img.dataset.photo;
+    let attempt = 0;
+
+    function tryNext() {
+
+        if (attempt >= photoExtensions.length) {
+            console.warn("Photo introuvable :", name);
+
+            img.style.display = "none";
+
+            const message = document.createElement("div");
+            message.className = "photo-error";
+            message.style.display = "block";
+            message.textContent =
+                "Photo introuvable : " + name;
+
+            img.parentNode.insertBefore(message, img.nextSibling);
+            return;
+        }
+
+        const extension = photoExtensions[attempt];
+        attempt++;
+
+        img.src = "photos/" + name + extension;
+    }
+
+    img.onerror = tryNext;
+
+    tryNext();
+}
+
+document.querySelectorAll("img[data-photo]").forEach(loadPhoto);
+
+/* CHAPTER NAVIGATION */
+
+let currentChapter = 0;
+
+const chapters = document.querySelectorAll(".chapter");
+
+function showChapter(index) {
+
+    chapters.forEach(chapter => {
+        chapter.classList.remove("active");
+    });
+
+    currentChapter = Math.max(
+        0,
+        Math.min(index, chapters.length - 1)
+    );
+
+    chapters[currentChapter].classList.add("active");
+
+    document.getElementById("progress").textContent =
+        "Chapitre " + (currentChapter + 1) +
+        " sur " + chapters.length;
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+function nextChapter() {
+    showChapter(currentChapter + 1);
+}
+
+function previousChapter() {
+    showChapter(currentChapter - 1);
+}
+
+/* COUNTDOWN */
+
+function updateCountdown() {
+
+    const target = new Date("2026-12-28T00:00:00+02:00");
+    const now = new Date();
+
+    const difference = target - now;
+    const countdown = document.getElementById("countdown");
+
+    if (difference <= 0) {
+        countdown.textContent = "Le grand jour est arrivé ! ❤️";
+        return;
+    }
+
+    const days = Math.floor(difference / 86400000);
+
+    const hours = Math.floor(
+        (difference % 86400000) / 3600000
+    );
+
+    const minutes = Math.floor(
+        (difference % 3600000) / 60000
+    );
+
+    const seconds = Math.floor(
+        (difference % 60000) / 1000
+    );
+
+    countdown.textContent =
+        days + "j " +
+        hours + "h " +
+        minutes + "m " +
+        seconds + "s ❤️";
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+/* FINAL SURPRISE */
+
+function sendKisses() {
+
+    document.getElementById("finalMessage").hidden = false;
+
+    const container = document.getElementById("hearts");
+
+    const symbols = ["❤️", "💗", "💕", "💋", "🌹"];
+
+    const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (reducedMotion) {
+        return;
+    }
+
+    for (let i = 0; i < 35; i++) {
+
+        const heart = document.createElement("span");
+
+        heart.className = "heart";
+
+        heart.textContent =
+            symbols[Math.floor(Math.random() * symbols.length)];
+
+        heart.style.left = Math.random() * 95 + "%";
+
+        heart.style.animationDelay = Math.random() * 2 + "s";
+
+        container.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 6500);
+    }
+}
+
+/* START */
+
+showChapter(0);
+
+</script>
+
+</body>
+</html>
